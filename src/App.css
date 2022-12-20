@@ -1,38 +1,102 @@
-.App {
-  text-align: center;
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&family=Raleway:wght@300;400;500;600;700&display=swap');
+
+*{
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  font-family: 'Raleway', sans-serif;
+  transition: .3s ease;
+  -webkit-transition: .3s ease;
+  -moz-transition: .3s ease;
+  -ms-transition: .3s ease;
+  -o-transition: .3s ease;
+
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+/* Styling and Size Configurations */
+:root{
+  /* Colors */
+  --yellowColor: #e1f296;
+  --lightGreenColor: #5aba8a;
+  --darkGreenColor: #01565b;
+  --textColor: #012e33;
+  --h1Color: #012e33;
+  --cardColor: #4c9fa7;
+  --whiteColor: hsl(0,0%,100%);
+  --greyText: rgb(190,190,190);
+  --inputColor : hsl(224, 39%, 80%);
+
+  /* Typography */
+
+  --h1Font: 2.5rem;
+  --h2Font: 1.25rem;
+  --h3Font: 1rem;
+  --normalFont: .935rem;
+  --smallFont: .812rem;
+  --smallestFont: .75rem;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+html{
+  font-size: 90%;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+a{
+  text-decoration: none;
+}
+
+li{
+  list-style: none;
+}
+
+.icon{
+  font-size: var(--h2Font);
+}
+
+img{
+  width: 100%;
+  height: auto;
+}
+
+.flex{
   display: flex;
-  flex-direction: column;
+  align-items: center;
+}
+
+.grid{
+  display: grid;
+  align-items: center;
+}
+
+.btn{
+  border: none;
+  outline: none;
+  cursor: pointer;
+  border-radius: 8px;
+  -webkit-border-radius: 8px;
+  -moz-border-radius: 8px;
+  -ms-border-radius: 8px;
+  -o-border-radius: 8px;
+  box-shadow: 0 2px 4px var(--darkGreenColor);
+  padding: .8rem 1rem;
+  font-weight: 600;
+  color: var(--textColor);
+}
+
+.btn .icon{
+  margin-left: .5rem;
+}
+
+.btn:hover{
+  background-color: palegreen;
+  color: var(--darkGreenColor);
+}
+
+/* Default Body Styling */
+body{
+  display: flex;
   align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
-}
-
-.App-link {
-  color: #61dafb;
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+  margin: auto;
+  padding: 1rem;
 }

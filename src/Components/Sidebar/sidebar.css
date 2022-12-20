@@ -1,0 +1,101 @@
+/* Styling and Size Configurations */
+:root {
+  /* Colors */
+  --yellowColor: #e1f296;
+  --lightGreenColor: #5aba8a;
+  --darkGreenColor: #01565b;
+  --textColor: #012e33;
+  --h1Color: #012e33;
+  --cardColor: #4c9fa7;
+  --whiteColor: hsl(0,0%,100%);
+  --greyText: rgb(190,190,190);
+  --inputColor: hsl(224, 39%, 80%);
+  /* Typography */
+  --h1Font: 2.5rem;
+  --h2Font: 1.25rem;
+  --h3Font: 1rem;
+  --normalFont: .935rem;
+  --smallFont: .812rem;
+  --smallestFont: .75rem;
+}
+
+.sideBar {
+  width: 6%;
+  height: auto;
+  display: grid;
+  align-items: flex-start;
+}
+.sideBar .logoDiv {
+  padding: 1rem;
+  justify-content: center;
+}
+.sideBar .logoDiv img {
+  width: 40px;
+}
+.sideBar .menu {
+  width: 100%;
+}
+.sideBar .menu .navItem .navList {
+  position: relative;
+  display: grid;
+  justify-content: center;
+  align-items: flex-start;
+  width: 100%;
+  padding: 1rem 0;
+  cursor: pointer;
+  overflow: hidden;
+}
+.sideBar .menu .navItem .navList::after {
+  display: none;
+  position: absolute;
+  content: "";
+  top: 50%;
+  right: 0;
+  width: 3px;
+  height: 25%;
+  border-radius: 10px;
+  -webkit-border-radius: 10px;
+  -moz-border-radius: 10px;
+  -ms-border-radius: 10px;
+  -o-border-radius: 10px;
+  transition: 0.3s ease;
+  -webkit-transition: 0.3s ease;
+  -moz-transition: 0.3s ease;
+  -ms-transition: 0.3s ease;
+  -o-transition: 0.3s ease;
+  background-color: var(--lightGreenColor);
+}
+.sideBar .menu .navItem .navList::before {
+  display: none;
+  position: absolute;
+  content: "";
+  bottom: 50%;
+  right: 0;
+  width: 3px;
+  height: 25%;
+  border-radius: 10px;
+  -webkit-border-radius: 10px;
+  -moz-border-radius: 10px;
+  -ms-border-radius: 10px;
+  -o-border-radius: 10px;
+  transition: 0.3s ease;
+  -webkit-transition: 0.3s ease;
+  -moz-transition: 0.3s ease;
+  -ms-transition: 0.3s ease;
+  -o-transition: 0.3s ease;
+  background-color: var(--darkGreenColor);
+}
+.sideBar .menu .navItem .navList .icon {
+  width: 100%;
+  color: var(--greyText);
+}
+.sideBar .menu .navItem .navList:hover::after, .sideBar .menu .navItem .navList:hover::before {
+  display: block;
+}
+.sideBar .menu .navItem .navList:hover .icon {
+  color: var(--darkGreenColor);
+}
+
+.active {
+  color: var(--darkGreenColor);
+}/*# sourceMappingURL=sidebar.css.map */
