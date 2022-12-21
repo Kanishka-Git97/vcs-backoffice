@@ -7,6 +7,7 @@ import User from './Pages/User/User';
 // Importing Routing Component
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { ChatRoom } from './Pages/ChatRoom/ChatRoom';
+import { Pets } from './Pages/Pets/Pets';
 function App() {
   return (
     <Router>
@@ -16,6 +17,7 @@ function App() {
               <Route path='/users' element={<User/>} />
               <Route path='/schedule' element={<Appointment/>} />
               <Route path='/chatroom' element={<ChatRoom/>} />
+              <Route path='/pets' element = {<Pets/>}/>
             </Routes>
             
         </div>
