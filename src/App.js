@@ -3,11 +3,24 @@ import './App.css';
 import Appointment from './Pages/Appointment/Appointment';
 import Dashboard from './Pages/Dashboard/Dashboard';
 import User from './Pages/User/User';
+
+// Importing Routing Component
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { ChatRoom } from './Pages/ChatRoom/ChatRoom';
 function App() {
   return (
-    <div className="App">
-        <Appointment/>
-    </div>
+    <Router>
+        <div className="App">
+            <Routes>
+              <Route exact path='/' element={<Dashboard/>} />
+              <Route path='/users' element={<User/>} />
+              <Route path='/schedule' element={<Appointment/>} />
+              <Route path='/chatroom' element={<ChatRoom/>} />
+            </Routes>
+            
+        </div>
+    </Router>
+    
   );
 }
 

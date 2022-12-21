@@ -25,7 +25,7 @@ const rows = [
 const Appointment = () => {
   return (
     <div className='container'>
-      <Sidebar/>
+      <Sidebar index="1"/>
       <div className="content">
         <Header title="Appointments" tag="Let's manage your client's appointment" />
         <Box sx={{flex:1}}>
