@@ -9,7 +9,7 @@ import Account from '../../Components/Account Section/Account'
 const Dashboard = () => {
   return (
     <div className='container'>
-        <Sidebar/>
+        <Sidebar index="0"/>
         <Dashpanel/>
         <Account/>
     </div>

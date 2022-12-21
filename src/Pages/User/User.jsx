@@ -38,7 +38,7 @@ const levels = [
 const User = () => {
   return (
     <div className='container'>
-        <Sidebar index="2"/>
+        <Sidebar index="3"/>
         
         <div className="content">
         <Header title="User Management" tag="Let's Manage your Users"/>
