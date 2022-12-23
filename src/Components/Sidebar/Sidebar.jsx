@@ -36,7 +36,7 @@ const Sidebar = (props) => {
             <Link to='/users'> <FiUsers className="icon" color={props.index === '3' ? '#01565b' : null}/></Link>
           </li>
           <li className="navList">
-            <MdOutlinePets className="icon" color={props.index === '4' ? '#01565b' : null}/>
+            <Link to='/pets'><MdOutlinePets className="icon" color={props.index === '4' ? '#01565b' : null}/></Link>
           </li>
           <li className="navList">
             <MdOutlineTextSnippet className="icon" color={props.index === '5' ? '#01565b' : null}/>

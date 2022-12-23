@@ -8,7 +8,7 @@ export const VideoPlayer = ({user}) => {
     const ref = useRef();
     useEffect(() =>{
         user.videoTrack.play(ref.current);
-        //user.audioTrack.play();
+        user.audioTrack.play();
     },[])
 
   return (

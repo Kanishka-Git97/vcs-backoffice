@@ -1,10 +1,14 @@
 import React, {useEffect, useState} from 'react'
 
 // Importing MUI
-import {Avatar, Button, Card, CardContent, CardHeader} from '@mui/material'
+import {Avatar, Button, Card, CardContent, CardHeader, IconButton} from '@mui/material'
 // Importing Agora 
 import AgoraRTC from 'agora-rtc-sdk-ng'
 import { VideoPlayer } from '../Video Player/VideoPlayer';
+
+// Importing Icons
+import {BsVolumeMute} from 'react-icons/bs'
+import {MdOutlineCallEnd} from 'react-icons/md'
 
 // Configuring Channel 
 const APP_ID = '3092980034824e83af91edb032c2e44f';
@@ -63,20 +67,27 @@ export const VideoRoom = () => {
 
 
   return (
+    <>
     <div style={{ display: 'flex' }}>
        
-        {users.map((user)=>(
-            <Card key={user.uid} sx={{ minWidth: 338, marginLeft: 1, backgroundColor: '#D7D7D7' }}>
-                <CardHeader
-                    avatar={<Avatar sx={{ bgcolor: '#D4170E' }}>P</Avatar>}
-                    title = "Dr. Purna Kanishka"
-                />
-                <CardContent>
-                    <VideoPlayer key={user.uid} user={user}/>
-                </CardContent>   
-                    
-            </Card>
-        ))}
-    </div>
+       {users.map((user)=>(
+           <Card key={user.uid} sx={{ minWidth: 338, marginLeft: 1, backgroundColor: '#D7D7D7' }}>
+               <CardHeader
+                   avatar={<Avatar sx={{ bgcolor: '#D4170E' }}>P</Avatar>}
+                   title = "Dr. Purna Kanishka"
+               />
+               <CardContent>
+                   <VideoPlayer key={user.uid} user={user}/>
+               </CardContent>   
+                   
+           </Card>
+       ))}
+       
+   </div>
+   <div className="btn-set">
+       <IconButton><BsVolumeMute/></IconButton>
+       <IconButton><MdOutlineCallEnd/></IconButton>
+   </div>
+    </>
   )
 }
