@@ -18,33 +18,10 @@
   --smallestFont: .75rem;
 }
 
-.container .content .pet-header {
-  margin-left: 1rem;
-}
-.container .content .pet-header .pet-name {
+.container .content .chat-header .chat-header-title {
+  font-size: 20px;
   font-weight: bold;
 }
-.container .content .pet-header .animal {
-  font-size: var(--smallFont);
-  font-weight: 600;
-}
-.container .content .pet-header .divider {
-  font-weight: bold;
-}
-.container .content .pet-header .gender {
-  font-size: var(--smallFont);
-}
-.container .content .details-section .pet-details {
-  font-size: var(--smallFont);
-}
-.container .content .details-section .date {
+.container .content .chat-header .chat-header-sub-title {
   font-size: var(--smallestFont);
-  font-weight: 600;
-  margin-top: 0.5rem;
-}
-.container .content .comment-section {
-  margin-top: 1rem;
-}
-.container .content .comment-section .send-btn {
-  margin-left: 0.1rem;
 }/*# sourceMappingURL=chatroom.css.map */

@@ -1,6 +1,6 @@
 import React from 'react'
 import './appointment.scss'
-
+import {useNavigate} from 'react-router-dom'
 // Importing Components
 import Sidebar from '../../Components/Sidebar/Sidebar'
 import Header from '../../Components/Header/Header'
@@ -22,7 +22,11 @@ const rows = [
   createTimeSlot(1, "2022-Dec-20", "10.00 AM", "Purna Kanishka", "Matara", "", "ascertain the momentary value of (an analogue signal) many times a second so as to convert the signal to digital form.", "Physical")
 ];
 
+
+
 const Appointment = () => {
+  const navigate = useNavigate();
+  const NavigateTo = ()=> navigate('/virtualroom');
   return (
     <div className='container'>
       <Sidebar index="1"/>
@@ -56,7 +60,7 @@ const Appointment = () => {
                               </Container>
                             </Grid>
                             <Grid item xs={2}>
-                              <Button size='small' variant='outlined'>Attend</Button>
+                              <Button size='small' variant='outlined' onClick={NavigateTo}>Attend</Button>
                             </Grid>
                           </Grid>
                         </CardContent>
