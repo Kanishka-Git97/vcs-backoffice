@@ -49,7 +49,7 @@ const Appointment = () => {
                             <Grid item xs={1}>
                               <Avatar>{row.client.charAt(0)}</Avatar>
                             </Grid>
-                            <Grid item xs={9}>
+                            <Grid item xs={8}>
                               <Container>
                                 <span className='tile-time'>{row.time}</span>
                                 <span> | </span>
@@ -59,8 +59,9 @@ const Appointment = () => {
                                 <p className='tile-msg'>{row.msg}</p>
                               </Container>
                             </Grid>
-                            <Grid item xs={2}>
+                            <Grid item xs={3}>
                               <Button size='small' variant='outlined' onClick={NavigateTo}>Attend</Button>
+                              <Button size='small' sx={{ mt:1 }} variant='outlined' onClick={NavigateTo}>Reschedule</Button>
                             </Grid>
                           </Grid>
                         </CardContent>

@@ -7,7 +7,7 @@ const locations = [{long: 54.37585762735543, lat: 24.45677614934833}, {long: 34.
 const BottomPanel = () => {
   return (
     <div className='bottom-section'>
-      <MapBox width='600px' height='270px' radius='15px' locations={locations}/>
+      <MapBox width='500px' height='270px' radius='15px' locations={locations}/>
     </div>
   )
 }

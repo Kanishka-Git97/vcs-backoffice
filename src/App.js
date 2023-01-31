@@ -13,13 +13,17 @@ import { VirtualRoom } from './Pages/VirtualRoom/VirtualRoom';
 import ChatRoom from './Pages/ChatRoom/ChatRoom'
 import PetProfile from './Pages/PetProfile/PetProfile';
 import Register from './Pages/Register/Register';
+import Login from './Pages/Login/Login';
 
 function App() {
   return (
     <Router>
         <div className="App">
             <Routes>
-              <Route exact path='/' element={<Dashboard/>} />
+              {
+                sessionStorage.getItem('logged') === 'true' ? <Route exact path='/' element={<Dashboard/>} /> : null
+              }
+              
               <Route path='/register' element={<Register/>} />
               <Route exact path='/clinic' element={<Clinic/>} />
               <Route path='/users' element={<User/>} />
@@ -28,6 +32,7 @@ function App() {
               <Route path= '/virtualroom' element={<VirtualRoom/>}/>
               <Route path='/pets' element = {<Pets/>}/>
               <Route path='/pets/profile' element={<PetProfile/>}/>
+              <Route path='/login' element={<Login/>}/>
             </Routes>
             
         </div>
