@@ -1,1 +1,30 @@
-/*# sourceMappingURL=petprofile.css.map */
+:root {
+  /* Colors */
+  --yellowColor: #e1f296;
+  --lightGreenColor: #5aba8a;
+  --darkGreenColor: #01565b;
+  --textColor: #012e33;
+  --h1Color: #012e33;
+  --cardColor: #4c9fa7;
+  --whiteColor: hsl(0,0%,100%);
+  --greyText: rgb(190,190,190);
+  --inputColor: hsl(224, 39%, 80%);
+  /* Typography */
+  --h1Font: 2.5rem;
+  --h2Font: 1.25rem;
+  --h3Font: 1rem;
+  --normalFont: .935rem;
+  --smallFont: .812rem;
+  --smallestFont: .75rem;
+}
+
+.container {
+  position: relative;
+  width: 100vw;
+  height: 95vh;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  padding: 2rem 1rem;
+  overflow: hidden;
+}/*# sourceMappingURL=petprofile.css.map */

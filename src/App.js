@@ -27,11 +27,17 @@ function App() {
               <Route path='/register' element={<Register/>} />
               <Route exact path='/clinic' element={<Clinic/>} />
               <Route path='/users' element={<User/>} />
-              <Route path='/schedule' element={<Appointment/>} />
+              {
+                sessionStorage.getItem('logged') === 'true' ? <Route path='/schedule' element={<Appointment/>} /> : null
+              }
+        
+              
               <Route path='/chatroom' element={<ChatRoom/>} />
               <Route path= '/virtualroom' element={<VirtualRoom/>}/>
               <Route path='/pets' element = {<Pets/>}/>
-              <Route path='/pets/profile' element={<PetProfile/>}/>
+              {
+                sessionStorage.getItem('logged') === 'true' ? <Route path='/pets/profile' element={<PetProfile/>}/> : null
+              }
               <Route path='/login' element={<Login/>}/>
             </Routes>
             
