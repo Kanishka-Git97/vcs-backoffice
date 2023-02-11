@@ -1,28 +1,98 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import './appointment.scss'
-
+import {useNavigate} from 'react-router-dom'
 // Importing Components
 import Sidebar from '../../Components/Sidebar/Sidebar'
 import Header from '../../Components/Header/Header'
 
 // Importing MUI
-import { Avatar, Box, Button, Card, CardContent, Chip, Grid, IconButton } from '@mui/material'
+import { Avatar, Box, Button, Card, CardContent, Chip, Grid} from '@mui/material'
 import { Container } from '@mui/system'
+import { useState } from 'react'
 
-// Importing Icons 
-import {MdOutlineAddIcCall} from 'react-icons/md'
+
+
 
 // Sample Data
-function createTimeSlot(id, date, time, client, location, img, msg, type){
-  return {id, date, time, client, location, img, msg, type}
+async function createTimeSlot(id, date, time, client, type, msg){
+  var clinetId = client;
+  let customer={}; 
+  // Date Formatting
+  const newDate = new Date(date);
+  const monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun",
+  "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"
+  ];
+
+ 
+  const monthName = monthNames[newDate.getMonth()];
+  const formattedDate = newDate.getFullYear() + "-" + monthName + "-" + newDate.getDate();
+  date = formattedDate;
+
+  // Client Fetching
+  await  fetch('http://localhost:8080/api/v1/client/get', {
+    method: 'POST',
+    headers: {'Content-Type': 'application/json'},
+    body: JSON.stringify({id: clinetId})
+  }).then(response => response.json()).then(data => {
+     console.log(data);
+     const name = data.firstName;
+     customer = data;
+    //  return name;
+     client = name;
+     
+  });
+
+  if(customer && customer.firstName){
+    client = customer.firstName + ' ' + customer.lastName;
+  }
+  console.log(client);
+
+
+  return {id, date, time, client, type, msg}
 }
 
-const rows = [
-  createTimeSlot(1, "2022-Dec-20", "9.00 AM", "Sandini Kaveesha", "Galle", "", "ascertain the momentary value of (an analogue signal) many times a second so as to convert the signal to digital form.", "Online"),
-  createTimeSlot(1, "2022-Dec-20", "10.00 AM", "Purna Kanishka", "Matara", "", "ascertain the momentary value of (an analogue signal) many times a second so as to convert the signal to digital form.", "Physical")
-];
+
+
+// Logged User
+const user = JSON.parse(sessionStorage.getItem('user'));
+
+
 
 const Appointment = () => {
+  // Routing
+  const navigate = useNavigate();
+  const NavigateTo = ()=> navigate('/virtualroom');
+
+  // States
+  const [appointments, setAppointments] = useState([]);
+
+
+  // Handle Available Appointment
+  const handleAvailableAppointment = async()=>{
+    fetch('http://localhost:8080/api/v1/appointment/appointments', {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({doctor: user.id})
+    }).then(response=> response.json()).then(async data=>{
+      if(data.length > 0){
+        let list = [];
+        for(var i=0; i<data.length; i++){
+          var item = await createTimeSlot(data[i].id,data[i].date, data[i].time,data[i].client, data[i].type, data[i].remark );
+          list = [...list, item];
+        }
+        setAppointments(list);
+      }
+
+    })
+  }
+  
+ useEffect(()=>{
+  handleAvailableAppointment();
+ },[]);
+
+
+
+
   return (
     <div className='container'>
       <Sidebar index="1"/>
@@ -38,14 +108,14 @@ const Appointment = () => {
                   </div>
 
                   <div className="schedule-content">
-                    {rows.map((row)=>(
-                      <Card sx={{ margin:2 }} className="tile">
+                    {appointments.map((row)=>(
+                      <Card sx={{ margin:2 }} className="tile" key={row.id}>
                         <CardContent>
                           <Grid container spacing={3}>
                             <Grid item xs={1}>
                               <Avatar>{row.client.charAt(0)}</Avatar>
                             </Grid>
-                            <Grid item xs={9}>
+                            <Grid item xs={8}>
                               <Container>
                                 <span className='tile-time'>{row.time}</span>
                                 <span> | </span>
@@ -55,8 +125,9 @@ const Appointment = () => {
                                 <p className='tile-msg'>{row.msg}</p>
                               </Container>
                             </Grid>
-                            <Grid item xs={2}>
-                              <Button size='small' variant='outlined'>Attend</Button>
+                            <Grid item xs={3}>
+                              <Button size='small' variant='outlined' onClick={NavigateTo}>Attend</Button>
+                              <Button size='small' sx={{ mt:1 }} variant='outlined' onClick={NavigateTo}>Reschedule</Button>
                             </Grid>
                           </Grid>
                         </CardContent>

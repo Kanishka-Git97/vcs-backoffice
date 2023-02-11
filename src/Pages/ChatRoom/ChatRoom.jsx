@@ -1,95 +1,54 @@
-import React, { useState, useEffect } from 'react'
-import './chatroom.scss'
-
-// Importing Component
-import Sidebar from '../../Components/Sidebar/Sidebar'
+import './chatroom.css'
+import React from 'react'
 import Header from '../../Components/Header/Header'
+import Sidebar from '../../Components/Sidebar/Sidebar'
 
 // Importing MUI
-import { Box } from '@mui/system'
-import { Accordion, AccordionDetails, AccordionSummary, Avatar, Button, Grid, TextField, IconButton } from '@mui/material'
-import { VideoRoom } from '../../Components/Video Room/VideoRoom'
+import { Avatar, Box, Grid, List, ListItem, ListItemAvatar, ListItemText } from '@mui/material'
 
-
-// Importing Images
-import bg from  '../../Assets/chatbg.svg'
-
-// Importing Icons
-import {BsChevronExpand, BsShare} from 'react-icons/bs'
-import {IoIosSend} from 'react-icons/io'
-
-export const ChatRoom = () => {
-
-  const [isJoined, setIsJoined] = useState(false);
-  const [isExpanded, setIsExpanded] = useState(false);
-
-  const handleChange = (panel) => (event, isExpanded)=> {
-    setIsExpanded(isExpanded ? panel : false);
-}
-
-// Data Sampling
-function createPet(id, pet, type, sex, lastComment, lastUpdate){
-  return {id, pet, type, sex, lastComment, lastUpdate};
-}
-
-const pets = [
-  createPet(1, 'Shaggy', 'Dog', 'Male', 'Nulla facilisi. Phasellus sollicitudin nulla et quam mattis feugiat. Aliquam eget maximus est, id dignissim quam.', '2022-Nov-22'),
-  createPet(2, 'Kitty', 'Cat', 'Female', 'Nulla facilisi. Phasellus sollicitudin nulla', '2022-Oct-20')
+// Sample Data 
+const data = [
+    {id: "1", name:  "Sandini Kaveesha", lastChat: "Thank you Doctor for the Help", date: "2022-12-30", time: "9.34 AM"},
+    {id: "1", name:  "Jagath Pathirana", lastChat: "Can you Send Your Number?", date: "2022-12-30", time: "8.04 AM"},
 ];
 
 
+const ChatRoom = () => {
   return (
     <div className='container'>
-        <Sidebar index="2"/>
+        <Sidebar index="2" />
         <div className="content">
-        <Header title="Chat Room" tag="Let's Manage your Chats and Connect with Clients"/>
-        <Box sx={{ flexGrow: 1}}>
-            <Grid container spacing={2}>
-                <Grid item xs={4}>
-                    {/* Left Side */}
-                    {pets.map((pet)=>(
-                        <Accordion expanded={isExpanded === pet.id} onChange={handleChange(pet.id)}>
-                        <AccordionSummary
-                          expandIcon={<BsChevronExpand/>}
-                          aria-controls="1bh-content"
-                          id="1-header"
-                        >
-                          <Avatar>{pet.pet.charAt(0)}</Avatar>
-                          <div className='pet-header'><span className='pet-name'>{pet.pet}</span><br /><span className='animal'>{pet.type}</span><span className='divider'> | </span><span className='gender'>{pet.sex}</span></div>
-                        </AccordionSummary>
-                        <AccordionDetails>
-                          <div className='details-section'>
-                            <span className="pet-details">
-                            {pet.lastComment}
-                            </span>
-                            <br />
-                            <span className="date">Last comment : {pet.lastUpdate}</span>
-                          </div>
-                          <div className='comment-section'>
-                              <TextField label="Comment" variant='outlined' size='small' />
-                              <IconButton className='send-btn'><IoIosSend/></IconButton>
-                          </div>
-                        </AccordionDetails>
-                      </Accordion>
-                    ))}
-                    
+            <Header title="Chat Room" tag="Let's Manage your Chats and Connect with Clients"/>
+            <Box sx={{ flexGrow: 1 }}>
+                <Grid container spacing={2}>
+                    <Grid item xs={4}>
+                        {/* Left Side */}
+                        <div className="chat-header">
+                            <div className="chat-header-title">
+                                Chats
+                            </div>
+                            <div className="chat-header-sub-title">Most Recent Chat and Requests</div>
+                        </div>
+                        <div className="chat-list">
+                            <List sx={{ width: '100%' }} component='nav'>
+                                {data.map((chat)=>(
+                                    <ListItem alignItems='flex-start' button divider>
+                                        <ListItemAvatar><Avatar>{chat.name.charAt(0)}</Avatar></ListItemAvatar>
+                                        <ListItemText
+                                        primary={chat.name}
+                                        secondary={chat.lastChat}
+                                        ></ListItemText>
+                                    </ListItem>
+                                ))}
+                            </List>
+                        </div>
+                    </Grid>
+                    {/* Right Side Need to Implement Chat section //todo: chat Engine */}
                 </Grid>
-                <Grid item xs={8}>
-                    {/* Right Side */}
-                    {!isJoined && (
-                       <div>
-                         <Button size='small' variant='outlined' onClick={()=> setIsJoined(true)} endIcon={<BsShare/>}>Join Room</Button>
-                         <img src={bg}/>
-                       </div>
-                    )}
-                    {isJoined &&(
-                        <VideoRoom/>
-                    )}
-                    
-                </Grid>
-            </Grid>
-        </Box>
+            </Box>
         </div>
     </div>
   )
 }
+
+export default ChatRoom

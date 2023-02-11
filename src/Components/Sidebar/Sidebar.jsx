@@ -10,6 +10,7 @@ import { BsCalendarDate} from 'react-icons/bs'
 import { FiUsers} from 'react-icons/fi'
 import { MdOutlinePets, MdOutlineTextSnippet} from 'react-icons/md'
 import { TbBusinessplan} from 'react-icons/tb'
+import { BiClinic } from 'react-icons/bi'
 
 
 // Importing Routing Component
@@ -39,10 +40,13 @@ const Sidebar = (props) => {
             <Link to='/pets'><MdOutlinePets className="icon" color={props.index === '4' ? '#01565b' : null}/></Link>
           </li>
           <li className="navList">
-            <MdOutlineTextSnippet className="icon" color={props.index === '5' ? '#01565b' : null}/>
+            <Link to='/clinic'><BiClinic className="icon" color={props.index === '5' ? '#01565b' : null}/></Link>
           </li>
           <li className="navList">
-            <TbBusinessplan className="icon" color={props.index === '6' ? '#01565b' : null}/>
+            <MdOutlineTextSnippet className="icon" color={props.index === '6' ? '#01565b' : null}/>
+          </li>
+          <li className="navList">
+            <TbBusinessplan className="icon" color={props.index === '7' ? '#01565b' : null}/>
           </li>
         </ul>
       </div>

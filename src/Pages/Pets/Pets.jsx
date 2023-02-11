@@ -1,4 +1,4 @@
-import React, {forwardRef, useState} from 'react'
+import React, {forwardRef, useEffect, useRef, useState} from 'react'
 import './pets.scss'
 // Importing Images
 import bg from '../../Assets/bg.webp'
@@ -6,6 +6,7 @@ import bg from '../../Assets/bg.webp'
 // Importing Component
 import Sidebar from '../../Components/Sidebar/Sidebar'
 import Header from '../../Components/Header/Header'
+import { toast, ToastContainer } from 'react-toastify'
 
 // Importing MUI
 import {Box, Grid, TextField, Button, MenuItem, IconButton, Dialog, Slide, AppBar, Toolbar, Paper, TableContainer, TableHead, TableCell, TableBody, TableRow, Table, TablePagination} from '@mui/material'
@@ -20,7 +21,28 @@ const genders = [
   {value: 'Female', label: 'Female'},
 ];
 
+const animal = [
+  {value: 'Dog', label: 'Dog'},
+  {value: 'Cat', label: 'Cat'},
+  {value: 'Fish', label: 'Fish'},
+  {value: 'Bird', label: 'Bird'},
+  {value: 'Rabbit', label: 'Rabbit'},
+  {value: 'Hamster', label: 'Hamster'},
+  {value: 'Guinea Pig', label: 'Guinea Pig'},
+  {value: 'Turtle', label: 'Turtle'},
+  {value: 'Snake', label: 'Snake'},
+  {value: 'Horse', label: 'Horse'},
+  {value: 'Goat', label: 'Goat'},
+  {value: 'Pig', label: 'Pig'}
+];
+  
+  
+  
+  
+  
 
+// Fetching the Doctor
+const user = JSON.parse(sessionStorage.getItem('user'));
 
 //Setting Model
 const Transition = forwardRef(function Transition(props, ref){
@@ -38,20 +60,71 @@ const columns = [
 ];
 
 // Sample Data
-function createData(id, name, dob, breed, sex, owner){
+async function createData(id, name, dob, breed, sex, owner){
+  let customer = {};
+  
+  await fetch('http://localhost:8080/api/v1/client/get', {
+    method: 'POST',
+    headers: {'Content-Type': 'application/json'},
+    body: JSON.stringify({id: owner})
+  }).then(response => response.json()).then(data => {
+    customer = data; 
+  })
+
+  if(customer){
+    owner = customer.firstName + ' ' + customer.lastName;
+  }
   const action = <div style={{ display:'flex' }}><IconButton><CiEdit/></IconButton><IconButton><IoMdMore/></IconButton></div>;
   return {id, name, dob, breed, sex, owner, action};
 }
 
-const rows = [
-  createData(1, 'Shaggy','2021-May-25', 'Labrado', 'Male', 'Sandini Kaveesha'),
-  createData(2, 'Kittiy','2021-Mar-25', 'Persian', 'Female', 'Sandini Kaveesha'),
-];
+
 
 export const Pets = () => {
+
+  // States
   const [open, setOpen] = useState(false);
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(5);
+  const [petName, setPetName] = useState(null);
+  const [breed, setBreed] = useState(null);
+  const [sex, setSex] = useState(null);
+  const [owner, setOwner] = useState(null);
+  const [owners, setOwners] = useState([]);
+  const [dob, setDob] = useState(null);
+  const [type, setType] = useState(null);
+  const [rows, setRows] = useState([]);
+
+  // References 
+  const petRegistrationFrom = useRef();
+
+  const fetchOwners =  async()=>{
+      fetch('http://localhost:8080/api/v1/client/get_by_doctor',{
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({doctor: user.id })
+      }).then(response => response.json()).then(data => {
+        console.log(data);
+        setOwners(data);
+      })
+  }
+
+  const fetchPets = async()=>{
+    fetch('http://localhost:8080/api/v1/pet/get_by_doctor', {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({doctor: user.id})
+    }).then(response => response.json()).then(async data => {
+      // implement response 
+      let pets = [];
+      for(var i= 0; i<data.length; i++) {
+        var pet = await createData(data[i].id, data[i].name, data[i].dob, data[i].breed, data[i].sex, data[i].client);
+        pets = [...pets, pet];
+      }
+      setRows(pets);
+      console.log(pets);
+    })
+  }
 
   const handleOpen = ()=>{
     setOpen(true);
@@ -67,6 +140,63 @@ export const Pets = () => {
     setPage(0);
   }
 
+  // Pet Registration Handle
+  const handlePetRegistration = (event) => {
+    event.preventDefault();
+    // todo: sending Model 
+    const data = {
+      name: petName,
+      breed: breed,
+      sex: sex,
+      doctor: user.id,
+      client: owner,
+      dob: dob,
+      type: type,
+      remark: ""
+    }
+    console.log(data);
+    // todo: validate
+    // todo: send
+    fetch('http://localhost:8080/api/v1/pet/register', {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify(data)
+    }).then(response => response).then(data =>{
+      if(data.status === 200){
+        toast.success("Successfully Registered", {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "dark",
+          });
+          // petRegistrationFrom.reset(); 
+          // todo: need to refresh form 
+      }
+      else{
+        toast.warn("Something Went Wrong", {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "dark",
+          });
+      }
+    })
+    // todo: validate response
+    // todo: update the table
+  }
+
+  useEffect(()=>{
+    fetchOwners();
+    fetchPets();
+  },[]);
 
 
   return (
@@ -134,9 +264,32 @@ export const Pets = () => {
                     }}
                     noValidate
                     autoComplete="off"
+                    onSubmit={handlePetRegistration}
+                    ref={petRegistrationFrom}
                   >
-                    <TextField id="outlined-basic" label="Pet Name" size='small' variant="outlined" sx={{ width: '100%' }}/>
-                    <TextField id="outlined-basic" label="Breed" size='small' variant="outlined" sx={{ width: '100%' }} />
+                    <Grid container>
+                      <Grid item xs={5} sx={{ mr:2 }}>
+                        <TextField id="outlined-basic" label="Pet Name" size='small' variant="outlined" sx={{ width: '100%' }} onChange={(e)=>setPetName(e.target.value)}/>
+                      </Grid>
+                      <Grid item xs={6}>
+                        <TextField id="outlined-basic" label="Date of Birth" size='small' type='date' variant="outlined" sx={{ width: '100%' }} onChange={(e)=>setDob(e.target.value)} InputLabelProps={{shrink: true}}/>
+                      </Grid>
+                    </Grid>
+                    <Grid container>
+                      <Grid item xs={6} sx={{ mr:1 }}>
+                        <TextField id="outlined-basic" label="Breed" size='small' variant="outlined" sx={{ width: '100%' }} onChange={(e)=>setBreed(e.target.value)}/>
+                      </Grid>
+                      <Grid item xs={5} sx={{ ml:1 }}>
+                        <TextField id="outlined-basic" label="Type" size='small' variant="outlined" sx={{ width: '100%' }} onChange={(e)=>setType(e.target.value)} select>
+                        {animal.map((option) => (
+                        <MenuItem key={option.value} value={option.value}>
+                          {option.label}
+                        </MenuItem>
+                         ))}
+                        </TextField>
+                      </Grid>
+                    </Grid>
+                   
                     <TextField
                       id="outlined-select-currency"
                       select
@@ -144,6 +297,7 @@ export const Pets = () => {
                       helperText="Please select pet's gender"
                       size='small'
                       sx={{ width: '100%' }}
+                      onChange={(e)=>setSex(e.target.value)}
                     >
                       {genders.map((option) => (
                         <MenuItem key={option.value} value={option.value}>
@@ -156,19 +310,19 @@ export const Pets = () => {
                       id="outlined-select-currency"
                       select
                       label="Pet Owner"
-                     
+                      onChange={(e)=>setOwner(e.target.value)}
                       size='small'
                       sx={{ width: '100%' }}
                     >
-                      {genders.map((option) => (
-                        <MenuItem key={option.value} value={option.value}>
-                          {option.label}
+                      {owners.map((option) => (
+                        <MenuItem key={option.id} value={option.id}>
+                          {option.firstName + ' ' + option.lastName}
                         </MenuItem>
                       ))}
                     </TextField>
                     <IconButton onClick={handleOpen} className='add-btn'><AiOutlineUserAdd/></IconButton>
                     </div>
-                    <Button variant='outlined' size='small' sx={{ width: '100%' }}>Create Pet</Button>
+                    <Button variant='outlined' size='small' sx={{ width: '100%' }} type='submit'>Create Pet</Button>
                 </Box>
                 </div>
               </div>
@@ -224,6 +378,7 @@ export const Pets = () => {
             </Grid>
           </Box>
       </Dialog>
+      <ToastContainer/>
     </div>
   )
 }

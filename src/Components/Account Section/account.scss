@@ -1,0 +1,170 @@
+:root{
+    /* Colors */
+    --yellowColor: #e1f296;
+    --lightGreenColor: #5aba8a;
+    --darkGreenColor: #01565b;
+    --textColor: #012e33;
+    --h1Color: #012e33;
+    --cardColor: #4c9fa7;
+    --whiteColor: hsl(0,0%,100%);
+    --greyText: rgb(190,190,190);
+    --inputColor : hsl(224, 39%, 80%);
+  
+    /* Typography */
+  
+    --h1Font: 2.5rem;
+    --h2Font: 1.25rem;
+    --h3Font: 1rem;
+    --normalFont: .935rem;
+    --smallFont: .812rem;
+    --smallestFont: .75rem;
+}
+
+
+
+.account{
+    width: 25%;
+    background: linear-gradient((rgb(4,69,97)),hsla(183, 98%, 18%, 0.051)), url(../../Assets/photo-1518531933037-91b2f5f229cc.jpg);
+    height: 100%;
+    background-repeat: no-repeat;
+    background-position: bottom;
+    background-size: cover;
+    padding: 2rem 2.5rem;
+    margin-left: 5rem;
+    border-radius: 15px;
+    -webkit-border-radius: 15px;
+    -moz-border-radius: 15px;
+    -ms-border-radius: 15px;
+    -o-border-radius: 15px;
+
+    .icons{
+        justify-content: space-between;
+        color: var(--whiteColor);
+        cursor: pointer;
+
+        .icon{
+            background: rgba(255,255,255,0.151);
+            border-radius: 50%;
+            -webkit-border-radius: 50%;
+            -moz-border-radius: 50%;
+            -ms-border-radius: 50%;
+            -o-border-radius: 50%;
+            padding: .4rem;
+            height: 30px;
+            width: 30px;
+        }
+    }
+
+    .accountDetails{
+        display: grid;
+        align-items: center;
+        justify-content: center;
+        padding: 2rem;
+        margin-top: 2rem;
+
+        .img{
+            display: grid;
+            align-items: center;
+            text-align: center;
+            margin: auto;
+
+            img{
+                width: 70px;
+                height: 70px;
+                display: block;
+                margin: auto;
+                border-radius: 50%;
+                -webkit-border-radius: 50%;
+                -moz-border-radius: 50%;
+                -ms-border-radius: 50%;
+                -o-border-radius: 50%;
+                padding: 5px;
+                margin-bottom: 1rem;
+            }
+
+            .name{
+                font-size: var(--h2Font);
+                color: var(--whiteColor);
+                font-weight: 500;
+            }
+
+            .btn{
+                border-radius: 3rem;
+                -webkit-border-radius: 3rem;
+                -moz-border-radius: 3rem;
+                -ms-border-radius: 3rem;
+                -o-border-radius: 3rem;
+                margin: 1rem 0;
+                width: 170px;
+                gap: 1rem;
+
+                &:hover{
+                    background: var(--inputColor);
+                    color: var(--textColor);
+                }
+
+            }
+
+        }
+
+        .hours{
+            margin-top: 1rem;
+            text-align: center;
+
+            .title{
+                color: var(--whiteColor);
+                font-weight: 500;
+                padding-bottom: .5rem;
+                font-size: var(--h3Font);
+                display: block;
+                margin-bottom: .3rem;
+            }
+
+            .hoursCard{
+                margin: auto;
+                padding: .5rem;
+                background: var(--cardColor);
+                justify-content: space-between;
+                width: max-content;
+                gap: 1rem;
+                border-radius: 1rem;
+                -webkit-border-radius: 1rem;
+                -moz-border-radius: 1rem;
+                -ms-border-radius: 1rem;
+                -o-border-radius: 1rem;
+
+                .right, .left{
+                    color: var(--whiteColor);
+
+                    span{
+                        display: block;
+                        font-size: var(--smallFont);
+                        padding-bottom: .3rem;
+                       
+                    }
+
+                    h6{
+                        font-size: var(--h3Font);
+                        
+                    }
+
+                }
+                .bg, .noBg{
+                    background: var(--whiteColor);
+                    padding: 1rem 2rem;
+                    color: var(--darkGreenColor);
+                    border-radius: .7rem;
+                    -webkit-border-radius: .7rem;
+                    -moz-border-radius: .7rem;
+                    -ms-border-radius: .7rem;
+                    -o-border-radius: .7rem;
+                }
+                .noBg{
+                    background: transparent;
+                    color: var(--whiteColor);
+                }
+            }
+        }
+    }
+
+}

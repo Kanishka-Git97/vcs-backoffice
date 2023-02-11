@@ -18,10 +18,13 @@
   --smallestFont: .75rem;
 }
 
-.container .content .chat-header .chat-header-title {
-  font-size: 20px;
-  font-weight: bold;
-}
-.container .content .chat-header .chat-header-sub-title {
-  font-size: var(--smallestFont);
-}/*# sourceMappingURL=chatroom.css.map */
+.container {
+  position: relative;
+  width: 100vw;
+  height: 95vh;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  padding: 2rem 1rem;
+  overflow: hidden;
+}/*# sourceMappingURL=petprofile.css.map */
