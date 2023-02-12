@@ -60,11 +60,6 @@
   font-weight: 500;
   opacity: 0.7;
 }
-.topDiv .searchInput input:-ms-input-placeholder {
-  color: var(--textColor);
-  font-weight: 500;
-  opacity: 0.7;
-}
 .topDiv .searchInput input::placeholder {
   color: var(--textColor);
   font-weight: 500;

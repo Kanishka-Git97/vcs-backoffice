@@ -14,7 +14,7 @@ import { useState } from 'react'
 
 
 // Sample Data
-async function createTimeSlot(id, date, time, client, type, msg){
+async function createTimeSlot(id, date, time, client, type, msg, appointment){
   var clinetId = client;
   let customer={}; 
   // Date Formatting
@@ -48,7 +48,7 @@ async function createTimeSlot(id, date, time, client, type, msg){
   console.log(client);
 
 
-  return {id, date, time, client, type, msg}
+  return {id, date, time, client, type, msg, appointment}
 }
 
 
@@ -61,7 +61,10 @@ const user = JSON.parse(sessionStorage.getItem('user'));
 const Appointment = () => {
   // Routing
   const navigate = useNavigate();
-  const NavigateTo = ()=> navigate('/virtualroom');
+  const NavigateTo = (appointment)=>{
+    sessionStorage.setItem('appointment', JSON.stringify(appointment));
+    navigate('/virtualroom');
+  };
 
   // States
   const [appointments, setAppointments] = useState([]);
@@ -77,7 +80,7 @@ const Appointment = () => {
       if(data.length > 0){
         let list = [];
         for(var i=0; i<data.length; i++){
-          var item = await createTimeSlot(data[i].id,data[i].date, data[i].time,data[i].client, data[i].type, data[i].remark );
+          var item = await createTimeSlot(data[i].id,data[i].date, data[i].time,data[i].client, data[i].type, data[i].remark, data[i] );
           list = [...list, item];
         }
         setAppointments(list);
@@ -126,7 +129,7 @@ const Appointment = () => {
                               </Container>
                             </Grid>
                             <Grid item xs={3}>
-                              <Button size='small' variant='outlined' onClick={NavigateTo}>Attend</Button>
+                              <Button size='small' variant='outlined' onClick={()=>NavigateTo(row.appointment)}>Attend</Button>
                               <Button size='small' sx={{ mt:1 }} variant='outlined' onClick={NavigateTo}>Reschedule</Button>
                             </Grid>
                           </Grid>

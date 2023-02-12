@@ -12,7 +12,7 @@ import {MdOutlineCallEnd} from 'react-icons/md'
 
 // Configuring Channel 
 const APP_ID = '3092980034824e83af91edb032c2e44f';
-const TOKEN = '007eJxTYLjcHXXdMG9msUl54RKGHt95ppc2/90Z9TepwuddXM4xMSEFBtPkFDPLxEQTs0QTcxNzsyQLU/Nkk0SDlMREi5QUSwtjBo7VyQ2BjAzLpR8xMzJAIIjPzFCWXMzAAABEGh71';
+const TOKEN = '007eJxTYLjNtcbuR/fxiEnZXJ35okJs9cv72Wyz+6/ey1psXrwvM0eBwTQ5xcwyMdHELNHE3MTcLMnC1DzZJNEgJTHRIiXF0sL48s/byQ2BjAwZvzgZGKEQxGdmKEsuZmAAAP7RHzU=';
 const CHANNEL = 'vcs';
 
 const client = AgoraRTC.createClient({
