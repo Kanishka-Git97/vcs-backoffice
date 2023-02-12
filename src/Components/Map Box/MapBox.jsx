@@ -4,6 +4,7 @@ import 'mapbox-gl/dist/mapbox-gl.css'
 import Map, {Marker, NavigationControl} from 'react-map-gl'
 
 const MapBox = (props) => {
+  
   return (
     <div className='map-box'>
       <Map
@@ -23,13 +24,16 @@ const MapBox = (props) => {
       
         mapStyle='mapbox://styles/mapbox/streets-v12'
       >
-        {props.locations.map((location)=>(
-            <Marker
-                longitude={location.long}
-                latitude= {location.lat}
-                
-            />
-        ))}
+        {
+
+            props.locations.map((location)=>(
+              <Marker
+                  longitude={location.long}
+                  latitude= {location.lat}
+                  
+              />
+)) 
+        }
         <NavigationControl
             position='bottom-right'
         />

@@ -3,6 +3,7 @@ import './App.css';
 import Appointment from './Pages/Appointment/Appointment';
 import Dashboard from './Pages/Dashboard/Dashboard';
 import User from './Pages/User/User';
+import Certificate from './Pages/Certificate/Certificate';
 
 // Importing Routing Component
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
@@ -38,7 +39,12 @@ function App() {
               {
                 sessionStorage.getItem('logged') === 'true' ? <Route path='/pets/profile' element={<PetProfile/>}/> : null
               }
+              {
+                sessionStorage.getItem('logged') === 'true' ? <Route path='/certificate' element={<Certificate/>}/> : null
+              }
+              
               <Route path='/login' element={<Login/>}/>
+
             </Routes>
             
         </div>

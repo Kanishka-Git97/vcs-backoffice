@@ -1,0 +1,50 @@
+:root {
+  /* Colors */
+  --yellowColor: #e1f296;
+  --lightGreenColor: #5aba8a;
+  --darkGreenColor: #01565b;
+  --textColor: #012e33;
+  --h1Color: #012e33;
+  --cardColor: #4c9fa7;
+  --whiteColor: hsl(0,0%,100%);
+  --greyText: rgb(190,190,190);
+  --inputColor: hsl(224, 39%, 80%);
+  /* Typography */
+  --h1Font: 2.5rem;
+  --h2Font: 1.25rem;
+  --h3Font: 1rem;
+  --normalFont: .935rem;
+  --smallFont: .812rem;
+  --smallestFont: .75rem;
+}
+
+.container {
+  position: relative;
+  width: 100vw;
+  height: 95vh;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  padding: 2rem 1rem;
+  overflow: hidden;
+}
+.container .content {
+  width: 69%;
+  display: grid;
+  align-items: center;
+  padding: 0 2rem;
+}
+.container .content .form-section {
+  display: grid;
+  margin-left: 1rem;
+}
+.container .content .form-section .form-header .form-title {
+  font-size: var(--h2Font);
+  font-weight: bold;
+}
+.container .content .form-section .form-header .form-sub-title {
+  font-size: 10px;
+}
+.container .content .form-section .form-content {
+  margin-top: 1rem;
+}/*# sourceMappingURL=certificate.css.map */

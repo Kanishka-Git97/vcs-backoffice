@@ -43,7 +43,7 @@ const Sidebar = (props) => {
             <Link to='/clinic'><BiClinic className="icon" color={props.index === '5' ? '#01565b' : null}/></Link>
           </li>
           <li className="navList">
-            <MdOutlineTextSnippet className="icon" color={props.index === '6' ? '#01565b' : null}/>
+            <Link to='/certificate'><MdOutlineTextSnippet className="icon" color={props.index === '6' ? '#01565b' : null}/></Link>
           </li>
           <li className="navList">
             <TbBusinessplan className="icon" color={props.index === '7' ? '#01565b' : null}/>

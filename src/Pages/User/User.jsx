@@ -10,6 +10,7 @@ import {Grid, Box, Table, TableBody, TableCell, TableContainer, TableHead, Table
 
 //Importing Icons
 import {AiOutlinePoweroff} from 'react-icons/ai'
+import { useState } from 'react'
 //Sample Data
 function createData(username, fullName, level, status, protein) {
   return { username , fullName, level, status, protein };
@@ -36,6 +37,16 @@ const levels = [
 ];
 
 const User = () => {
+
+  // States
+  const [email, setEmail] = useState(null);
+  const [name, setName] = useState(null);
+  const [level,setLevel] = useState(null);
+  const [password, setPassword] = useState(null);
+
+
+
+
   return (
     <div className='container'>
         <Sidebar index="3"/>
@@ -96,8 +107,9 @@ const User = () => {
                     noValidate
                     autoComplete="off"
                   >
-                    <TextField id="outlined-basic" label="Email" size='small' variant="outlined" sx={{ width: '100%' }}/>
-                    <TextField id="outlined-basic" label="Full Name" size='small' variant="outlined" sx={{ width: '100%' }} />
+                    
+                    <TextField id="outlined-basic" label="Full Name" size='small' variant="outlined" sx={{ width: '100%' }} onChange={(e)=>setName(e.target.value)} />
+                    <TextField id="outlined-basic" label="Email" size='small' variant="outlined" sx={{ width: '100%' }} onChange={(e)=>setEmail(e.target.value)}/>
                     <TextField
                       id="outlined-select-currency"
                       select
@@ -105,6 +117,7 @@ const User = () => {
                       helperText="Please select user's Level"
                       size='small'
                       sx={{ width: '100%' }}
+                      onChange={(e)=>setLevel(e.target.value)}
                     >
                       {levels.map((option) => (
                         <MenuItem key={option.value} value={option.value}>
@@ -112,7 +125,7 @@ const User = () => {
                         </MenuItem>
                       ))}
                     </TextField>
-                    <TextField id="outlined-basic" label="Password" size='small' variant="outlined" type='password' sx={{ width: '100%' }}/>
+                    <TextField id="outlined-basic" label="Password" size='small' variant="outlined" type='password' sx={{ width: '100%' }} onChange={(e)=>setPassword(e.target.value)}/>
                     <Button variant='outlined' size='small' sx={{ width: '100%' }}>Create User</Button>
                 </Box>
                 </div>

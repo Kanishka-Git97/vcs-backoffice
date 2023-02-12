@@ -63,8 +63,8 @@
   margin: auto;
 }
 .account .accountDetails .img img {
-  width: 70px;
-  height: 70px;
+  width: 120px;
+  height: 120px;
   display: block;
   margin: auto;
   border-radius: 50%;
@@ -111,7 +111,6 @@
   padding: 0.5rem;
   background: var(--cardColor);
   justify-content: space-between;
-  width: -webkit-max-content;
   width: -moz-max-content;
   width: max-content;
   gap: 1rem;

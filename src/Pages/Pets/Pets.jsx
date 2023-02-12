@@ -14,7 +14,10 @@ import {Box, Grid, TextField, Button, MenuItem, IconButton, Dialog, Slide, AppBa
 // Importing Icons
 import {AiOutlineUserAdd, AiOutlineCloseCircle} from 'react-icons/ai'
 import {CiEdit} from 'react-icons/ci'
+import {FaEye} from 'react-icons/fa'
 import {IoMdMore} from 'react-icons/io'
+import { Link } from 'react-router-dom'
+
 
 const genders = [
   {value: 'Male', label: 'Male'},
@@ -36,10 +39,6 @@ const animal = [
   {value: 'Pig', label: 'Pig'}
 ];
   
-  
-  
-  
-  
 
 // Fetching the Doctor
 const user = JSON.parse(sessionStorage.getItem('user'));
@@ -60,7 +59,7 @@ const columns = [
 ];
 
 // Sample Data
-async function createData(id, name, dob, breed, sex, owner){
+async function createData(id, name, dob, breed, sex, owner, pet){
   let customer = {};
   
   await fetch('http://localhost:8080/api/v1/client/get', {
@@ -74,11 +73,15 @@ async function createData(id, name, dob, breed, sex, owner){
   if(customer){
     owner = customer.firstName + ' ' + customer.lastName;
   }
-  const action = <div style={{ display:'flex' }}><IconButton><CiEdit/></IconButton><IconButton><IoMdMore/></IconButton></div>;
+  const data = pet;
+  const action = <div style={{ display:'flex' }}><IconButton onClick={()=>handleProfileView(pet)}><FaEye/></IconButton></div>;
   return {id, name, dob, breed, sex, owner, action};
 }
 
-
+const handleProfileView = (pet) => {
+  sessionStorage.setItem('pet', JSON.stringify(pet));
+  window.location.href = "http://localhost:3000/pets/profile";
+}
 
 export const Pets = () => {
 
@@ -94,6 +97,8 @@ export const Pets = () => {
   const [dob, setDob] = useState(null);
   const [type, setType] = useState(null);
   const [rows, setRows] = useState([]);
+  const [tempRows, setTempRows] = useState([]);
+  const [search, setSearch] = useState(null);
 
   // References 
   const petRegistrationFrom = useRef();
@@ -118,10 +123,11 @@ export const Pets = () => {
       // implement response 
       let pets = [];
       for(var i= 0; i<data.length; i++) {
-        var pet = await createData(data[i].id, data[i].name, data[i].dob, data[i].breed, data[i].sex, data[i].client);
+        var pet = await createData(data[i].id, data[i].name, data[i].dob, data[i].breed, data[i].sex, data[i].client, data[i]);
         pets = [...pets, pet];
       }
       setRows(pets);
+      setTempRows(pets);
       console.log(pets);
     })
   }
@@ -152,7 +158,7 @@ export const Pets = () => {
       client: owner,
       dob: dob,
       type: type,
-      remark: ""
+      specialRemarks: ""
     }
     console.log(data);
     // todo: validate
@@ -193,6 +199,16 @@ export const Pets = () => {
     // todo: update the table
   }
 
+  // Handle Search 
+  const handleSearch = (key)=>{
+    if(key != null){
+      let result = rows.filter(function(item){
+        return item.name.toLowerCase().includes(key.toLowerCase());
+      });
+      setTempRows(result);
+    }
+  }
+
   useEffect(()=>{
     fetchOwners();
     fetchPets();
@@ -209,6 +225,10 @@ export const Pets = () => {
             <Grid item xs={8}>
               {/* Left Side */}
               <Paper sx={{ width: '100%', overflow: 'hidden' }}>
+              <TextField id="outlined-basic" label="Search Pets" size='small' variant="outlined" sx={{ m:2 }} onChange={(e)=>{
+                setSearch(e.target.value);
+                handleSearch(e.target.value);
+              }}/>
                 <TableContainer sx={{ maxHeight: 400 }}>
                   <Table stickyHeader size='medium'>
                     <TableHead>
@@ -219,7 +239,7 @@ export const Pets = () => {
                       </TableRow>
                     </TableHead>
                     <TableBody>
-                      {rows.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((row)=>{
+                      {tempRows.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((row)=>{
                         return(
                           <TableRow hover role="checkbox" tabIndex={-1} key={row.id}>
                             {columns.map((column)=>{
@@ -245,8 +265,7 @@ export const Pets = () => {
                   onPageChange={handleChangePage}
                   onRowsPerPageChange={handleChangeRowsPerPage}
                 />
-                  
-         
+                  ``
               </Paper>
             </Grid>
             <Grid item xs={4}>
